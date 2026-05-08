@@ -89,9 +89,8 @@ weight matrices, with gamma drawn jointly with the spatial parameter
 
 {pstd}
 {cmd:spmixw} fits Bayesian fixed-effects panel data models via Markov chain
-Monte Carlo. The package ports the R package {bf:spmixW} which itself ports
-the MATLAB {bf:Panel Data Toolbox} ({bf:toolbox_panelg}) of LeSage; see
-LeSage and Pace (2009) and Debarsy and LeSage (2021).
+Monte Carlo, following the methodology in LeSage and Pace (2009) and
+Debarsy and LeSage (2021).
 
 {pstd}
 For single-W spatial models the spatial parameter rho (SAR / SDM) or lambda
@@ -114,8 +113,8 @@ read directly from the chain.
 
 {pstd}
 The spatial parameter is rendered in the same coefficient table as a
-labelled row: {bf:Wy} for SAR / SDM (matching {cmd:xsmle} and the MATLAB
-toolbox), {bf:We} for SEM / SDEM. This makes the output {cmd:estout}- and
+labelled row: {bf:Wy} for SAR / SDM (matching {cmd:xsmle}), {bf:We} for
+SEM / SDEM. This makes the output {cmd:estout}- and
 {cmd:coefplot}-friendly.
 
 {marker options}{...}
@@ -242,6 +241,12 @@ model." {it:Journal of Applied Econometrics}, 8(S1), S19-S40.
 {phang}
 LeSage, J. P. and Pace, R. K. (2009). {it:Introduction to Spatial Econometrics.}
 Boca Raton, FL: Chapman & Hall/CRC.
+
+{title:Related implementations}
+
+{pstd}
+The same methodology is also available as the R package {bf:spmixW} and
+as J. P. LeSage's MATLAB Panel Data Toolbox ({bf:toolbox_panelg}).
 
 {title:Author}
 
