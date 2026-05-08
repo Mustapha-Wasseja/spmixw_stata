@@ -44,15 +44,17 @@ program _spmixw_init
         _spmixw_effects_conv.mata
 
     foreach f of local files {
-        local path : copy local f
-        local found : findfile "`f'"
-        if "`found'" == "" {
+        // Use findfile as a command (works on Stata 13); the extended-macro
+        // form `local x : findfile ...` is unavailable on some 13 builds.
+        capture findfile "`f'"
+        if _rc {
             di as err "spmixw: cannot locate `f' on Stata's adopath."
             di as err "  The package ships .mata source files alongside .ado;"
             di as err "  ensure the install directory is on the adopath."
             exit 601
         }
-        quietly do "`found'"
+        local found `"`r(fn)'"'
+        quietly do `"`found'"'
     }
 
     // Final verify
