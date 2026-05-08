@@ -6,6 +6,8 @@
 program spmixw_estat, rclass
     version 13.0
 
+    _spmixw_init
+
     if "`e(cmd)'" != "spmixw" {
         di as err "spmixw_estat: no spmixw estimation results found"
         exit 301

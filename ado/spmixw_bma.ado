@@ -12,6 +12,8 @@
 program spmixw_bma, eclass
     version 13.0
 
+    _spmixw_init
+
     syntax varlist(min=2 numeric) [if] [in],                ///
         Model(string)                                       ///
         WMats(string)                                       ///

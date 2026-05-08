@@ -6,6 +6,9 @@
 program spmixw, eclass
     version 13.0
 
+    // Ensure the package's Mata functions are loaded. No-op if already loaded.
+    _spmixw_init
+
     syntax varlist(min=2 numeric) [if] [in],                ///
         Model(string)                                       ///
         [                                                   ///
