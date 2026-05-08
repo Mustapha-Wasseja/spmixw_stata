@@ -40,23 +40,34 @@ indirect / total effects.
 adopath ++ "/path/to/spmixw_stata/ado"
 ```
 
-### From a release archive (planned for v0.1.0)
+### From a local clone (Stata 13 friendly)
+
+Stata 13's HTTPS client is too old for modern GitHub TLS, so cloning
+locally is the most reliable path on 13. Stata 14+ users can use a direct
+URL once a release archive is published.
+
+```bash
+git clone https://github.com/Mustapha-Wasseja/spmixw_stata.git C:/spmixw_stata
+```
+
+Then build the flat distribution and install from it:
 
 ```stata
-net install spmixw, from("https://example.org/spmixw")
+global SPMIXW_PKG "C:/spmixw_stata"
+do "${SPMIXW_PKG}/build/build_dist.do"
+net install spmixw, from("${SPMIXW_PKG}/build/dist") replace
 ```
+
+`build_dist.do` first compiles the Mata library (calling `build_mlib.do`),
+then assembles a flat `build/dist/` folder containing every `.ado`,
+`.sthlp`, the compiled `lspmixw.mlib`, and a flat `spmixw.pkg` /
+`stata.toc`. That `dist/` folder is also the artefact you would zip and
+email to Kit Baum at SSC.
 
 ### From SSC (planned)
 
 ```stata
 ssc install spmixw
-```
-
-The Mata library `lspmixw.mlib` ships pre-built in `ado/`. To rebuild from
-source:
-
-```stata
-do "spmixw_stata/build/build_mlib.do"
 ```
 
 ## Quick start

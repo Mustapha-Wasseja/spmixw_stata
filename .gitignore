@@ -14,3 +14,6 @@ Thumbs.db
 
 # Build / dev artefacts
 *.dta.bak
+
+# Generated SSC distribution folder (built by build/build_dist.do)
+build/dist/
