@@ -122,47 +122,49 @@ foreach f of local FILES {
 
 di as txt "Packaging into `OUT'/lspmixw.mlib ..."
 
-// Some Stata 13 builds reject the dir() option on `mata mlib create/add`
-// when the destination path contains spaces ("invalid expression r(3000)").
-// Work around by `cd`-ing to the output directory first; mata mlib then
-// writes to the cwd by default, no dir() needed.
+// Some Stata 13 builds reject the Stata-level form `mata mlib create/add`
+// outright (parser returns "invalid expression r(3000)"). Run the same
+// commands from inside a `mata: ... end` block instead -- inside Mata,
+// `mlib create` / `mlib add` are recognised subcommands and the flaky
+// outer parser is bypassed entirely.
 local olddir = c(pwd)
 cd "`OUT'"
 
-mata mlib create lspmixw, replace
-mata mlib add lspmixw _spmixw_demean()
-mata mlib add lspmixw _spmixw_ols()
-mata mlib add lspmixw _spmixw_simulate_ols()
-mata mlib add lspmixw _spmixw_logdet_exact()
-mata mlib add lspmixw _spmixw_griddy_rho_sar()
-mata mlib add lspmixw _spmixw_sar()
-mata mlib add lspmixw _spmixw_simulate_sar()
-mata mlib add lspmixw _spmixw_summary()
-mata mlib add lspmixw _spmixw_linear_interp()
-mata mlib add lspmixw _spmixw_griddy_rho_sem()
-mata mlib add lspmixw _spmixw_sem()
-mata mlib add lspmixw _spmixw_simulate_sem()
-mata mlib add lspmixw _spmixw_compute_wx()
-mata mlib add lspmixw _spmixw_fill_wx_in_data()
-mata mlib add lspmixw _spmixw_trace_mc()
-mata mlib add lspmixw _spmixw_effects_sar()
-mata mlib add lspmixw _spmixw_effects_sdm()
-mata mlib add lspmixw _spmixw_effects_simple()
-mata mlib add lspmixw _spmixw_logdet_taylor()
-mata mlib add lspmixw _spmixw_eval_taylor_lndet()
-mata mlib add lspmixw _spmixw_gamma_proposal_uniform()
-mata mlib add lspmixw _spmixw_gamma_proposal_adapted()
-mata mlib add lspmixw _spmixw_eval_cond_sar_conv()
-mata mlib add lspmixw _spmixw_sar_conv()
-mata mlib add lspmixw _spmixw_sar_conv_caller()
-mata mlib add lspmixw _spmixw_simulate_sar_conv()
-mata mlib add lspmixw _spmixw_simulate_sem_conv()
-mata mlib add lspmixw _spmixw_model_probs()
-mata mlib add lspmixw _spmixw_trace_cross_mc()
-mata mlib add lspmixw _spmixw_effects_sdm_conv()
-mata mlib add lspmixw _spmixw_effects_sdem_conv()
-
-mata mlib index
+mata:
+    mlib create lspmixw, replace
+    mlib add lspmixw _spmixw_demean()
+    mlib add lspmixw _spmixw_ols()
+    mlib add lspmixw _spmixw_simulate_ols()
+    mlib add lspmixw _spmixw_logdet_exact()
+    mlib add lspmixw _spmixw_griddy_rho_sar()
+    mlib add lspmixw _spmixw_sar()
+    mlib add lspmixw _spmixw_simulate_sar()
+    mlib add lspmixw _spmixw_summary()
+    mlib add lspmixw _spmixw_linear_interp()
+    mlib add lspmixw _spmixw_griddy_rho_sem()
+    mlib add lspmixw _spmixw_sem()
+    mlib add lspmixw _spmixw_simulate_sem()
+    mlib add lspmixw _spmixw_compute_wx()
+    mlib add lspmixw _spmixw_fill_wx_in_data()
+    mlib add lspmixw _spmixw_trace_mc()
+    mlib add lspmixw _spmixw_effects_sar()
+    mlib add lspmixw _spmixw_effects_sdm()
+    mlib add lspmixw _spmixw_effects_simple()
+    mlib add lspmixw _spmixw_logdet_taylor()
+    mlib add lspmixw _spmixw_eval_taylor_lndet()
+    mlib add lspmixw _spmixw_gamma_proposal_uniform()
+    mlib add lspmixw _spmixw_gamma_proposal_adapted()
+    mlib add lspmixw _spmixw_eval_cond_sar_conv()
+    mlib add lspmixw _spmixw_sar_conv()
+    mlib add lspmixw _spmixw_sar_conv_caller()
+    mlib add lspmixw _spmixw_simulate_sar_conv()
+    mlib add lspmixw _spmixw_simulate_sem_conv()
+    mlib add lspmixw _spmixw_model_probs()
+    mlib add lspmixw _spmixw_trace_cross_mc()
+    mlib add lspmixw _spmixw_effects_sdm_conv()
+    mlib add lspmixw _spmixw_effects_sdem_conv()
+    mlib index
+end
 
 cd "`olddir'"
 
