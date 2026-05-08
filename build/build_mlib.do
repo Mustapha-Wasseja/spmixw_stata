@@ -80,7 +80,40 @@ local FILES                          ///
 // -- Compile ---------------------------------------------------------------
 di as txt "Building lspmixw.mlib from `MATA'/"
 
-mata clear
+// Some Stata 13 builds mis-parse `mata clear` as `mata` + `clear` (entering
+// Mata mode and evaluating clear as an expression). Use explicit per-function
+// drops instead -- same defensive pattern as tests/_setup.do.
+capture mata: mata drop _spmixw_demean()
+capture mata: mata drop _spmixw_ols()
+capture mata: mata drop _spmixw_simulate_ols()
+capture mata: mata drop _spmixw_logdet_exact()
+capture mata: mata drop _spmixw_griddy_rho_sar()
+capture mata: mata drop _spmixw_sar()
+capture mata: mata drop _spmixw_simulate_sar()
+capture mata: mata drop _spmixw_summary()
+capture mata: mata drop _spmixw_linear_interp()
+capture mata: mata drop _spmixw_griddy_rho_sem()
+capture mata: mata drop _spmixw_sem()
+capture mata: mata drop _spmixw_simulate_sem()
+capture mata: mata drop _spmixw_compute_wx()
+capture mata: mata drop _spmixw_fill_wx_in_data()
+capture mata: mata drop _spmixw_trace_mc()
+capture mata: mata drop _spmixw_effects_sar()
+capture mata: mata drop _spmixw_effects_sdm()
+capture mata: mata drop _spmixw_effects_simple()
+capture mata: mata drop _spmixw_logdet_taylor()
+capture mata: mata drop _spmixw_eval_taylor_lndet()
+capture mata: mata drop _spmixw_gamma_proposal_uniform()
+capture mata: mata drop _spmixw_gamma_proposal_adapted()
+capture mata: mata drop _spmixw_eval_cond_sar_conv()
+capture mata: mata drop _spmixw_sar_conv()
+capture mata: mata drop _spmixw_sar_conv_caller()
+capture mata: mata drop _spmixw_simulate_sar_conv()
+capture mata: mata drop _spmixw_simulate_sem_conv()
+capture mata: mata drop _spmixw_model_probs()
+capture mata: mata drop _spmixw_trace_cross_mc()
+capture mata: mata drop _spmixw_effects_sdm_conv()
+capture mata: mata drop _spmixw_effects_sdem_conv()
 
 foreach f of local FILES {
     di as txt "  compiling `f' ..."
