@@ -1,0 +1,6 @@
+Phase 1 will populate this directory with:
+  spmixw.ado          - top-level dispatcher
+  _spmixw_ols.ado     - OLS / FE OLS subroutine
+
+Naming convention: user-facing commands have no leading underscore;
+internal subroutines are prefixed with `_spmixw_`.

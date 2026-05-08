@@ -1,0 +1,7 @@
+Design memos, derivations, and cross-reference notes.
+
+Suggested contents (added as needed during each phase):
+  R_to_Stata_mapping.md   - line-by-line mapping for each ported function
+  matlab_cross_ref.md     - notes where MATLAB original disagrees with R port
+  mcmc_derivations.md     - posterior conditionals, samplers, log-marginals
+  performance_notes.md    - benchmarks vs R port; Mata bottlenecks

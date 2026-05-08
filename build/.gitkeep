@@ -1,0 +1,8 @@
+Build artifacts and packaging scripts.
+
+Phase 1 will add:
+  build_mlib.do      - compiles ../mata/*.mata into lspmixw.mlib
+  package.do         - assembles spmixw.pkg + stata.toc for `net install`
+  lspmixw.mlib       - generated; gitignored
+  spmixw.pkg         - generated; gitignored
+  stata.toc          - generated; gitignored

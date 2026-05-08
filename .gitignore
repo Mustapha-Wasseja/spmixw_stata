@@ -1,0 +1,16 @@
+# Stata
+*.log
+*.smcl
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+~$*
+*.tmp
+*.bak
+.vscode/
+.idea/
+
+# Build / dev artefacts
+*.dta.bak

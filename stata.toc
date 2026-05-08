@@ -1,0 +1,5 @@
+* stata.toc for spmixw
+v 3
+d spmixw -- Bayesian spatial panel data models with convex W
+d Mustapha Wasseja Mohammed <muswaseja@gmail.com>
+p spmixw

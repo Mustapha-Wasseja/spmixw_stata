@@ -1,0 +1,7 @@
+Phase 1 will populate this directory with:
+  _spmixw_demean.mata    - within-transformation
+  _spmixw_ols.mata       - pooled / FE OLS
+  _spmixw_simulate.mata  - DGP for tests
+
+Each .mata file declares one function. The build script
+(../build/build_mlib.do) compiles them into ../build/lspmixw.mlib.

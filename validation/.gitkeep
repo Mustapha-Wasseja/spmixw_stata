@@ -1,0 +1,13 @@
+Parity tests against the R port. Mirrors ../R_package/spmixW/inst/validation/.
+
+Convention:
+  validation_01_ols.do         - ports validation_01_ols.R
+  validation_02_sar.do         - ports validation_02_sar.R
+  ...
+  run_all_validations.do       - runs all and writes a diff report
+
+Each script:
+  1. Generates input from a fixed seed (must match the R script's seed)
+  2. Runs the Stata estimator
+  3. Loads R-side reference output (saved to ../R_package/spmixW/inst/validation/ref/*.csv)
+  4. Diffs key statistics against the tolerances in PLAN.md

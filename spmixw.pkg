@@ -1,0 +1,47 @@
+* spmixw.pkg
+v 3
+d 'SPMIXW': Bayesian spatial panel data models with convex combinations of weight matrices
+d
+d {bf:spmixw} fits Bayesian fixed-effects panel data models for SAR, SEM,
+d SDM, SDEM, SLX and their convex-W counterparts (Debarsy & LeSage 2021).
+d Companion command {bf:spmixw_bma} runs Bayesian Model Averaging over
+d non-empty subsets of M weight matrices. {bf:estat impact} reports
+d LeSage-Pace direct, indirect, and total effects.
+d
+d Author: Mustapha Wasseja Mohammed
+d Support: muswaseja@gmail.com
+d
+d Distribution-Date: 20260508
+d
+d Stata version 13.0 or later
+
+* User-facing commands
+f ado/spmixw.ado
+f ado/spmixw_bma.ado
+f ado/spmixw_estat.ado
+
+* Model subroutines
+f ado/_spmixw_ols.ado
+f ado/_spmixw_sar.ado
+f ado/_spmixw_sem.ado
+f ado/_spmixw_sdm.ado
+f ado/_spmixw_sdem.ado
+f ado/_spmixw_slx.ado
+f ado/_spmixw_sar_conv.ado
+f ado/_spmixw_sem_conv.ado
+f ado/_spmixw_sdm_conv.ado
+f ado/_spmixw_sdem_conv.ado
+
+* Postestimation
+f ado/_spmixw_estat_impact.ado
+
+* Display helpers
+f ado/_spmixw_print_table.ado
+
+* Mata library
+f ado/lspmixw.mlib
+
+* Help files
+f help/spmixw.sthlp
+f help/spmixw_bma.sthlp
+f help/spmixw_postestimation.sthlp

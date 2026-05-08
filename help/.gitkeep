@@ -1,0 +1,10 @@
+Phase 1 will populate this directory with:
+  spmixw.sthlp         - master help (overview, common options, see-also)
+  spmixw_ols.sthlp     - OLS-specific help
+
+Stata help files use SMCL. Each .sthlp must include:
+  - Title block, syntax, description
+  - Options table
+  - Worked example using simulate_panel data
+  - References (LeSage; Debarsy & LeSage 2021)
+  - Author / cite-as block

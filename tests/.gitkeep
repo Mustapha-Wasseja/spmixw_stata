@@ -1,0 +1,11 @@
+cscript-style do-files. One per Mata function, one per ado.
+
+Convention:
+  test_<name>.do            - unit test
+  master.do                 - runs all tests, exits non-zero on failure
+
+Each test:
+  1. Sets a deterministic seed
+  2. Generates input via simulate_panel
+  3. Calls the routine under test
+  4. Asserts results against tolerances declared in PLAN.md "Validation strategy"
