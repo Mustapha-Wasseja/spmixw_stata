@@ -1,5 +1,5 @@
-*! version 0.1.0  2026-05-07
-*! Build lspmixw.mlib from spmixw_stata/mata/*.mata
+*! version 0.1.0  2026-05-08
+*! Build lspmixw.mlib from the Mata source files in mata/.
 *!
 *! Run from spmixw_stata/build/   :   do build_mlib.do
 *! or from spmixw_stata/          :   do build/build_mlib.do
@@ -8,23 +8,41 @@
 version 13.0
 
 // -- Locate package root --------------------------------------------------
-// Works whether this do-file is run from build/, from package root, or by
-// full path: try the cwd's mata/ first, fall back to ../mata/.
+// Tries (a) global SPMIXW_PKG, (b) c(filename) of this do-file when run by
+// full path, then (c) cwd-relative fallbacks for "do build_mlib.do" from
+// build/ or "do build/build_mlib.do" from the package root.
 
 local PKG ""
-capture confirm file "mata/_spmixw_demean.mata"
-if !_rc {
-    local PKG "."
+
+if "${SPMIXW_PKG}" != "" {
+    capture confirm file "${SPMIXW_PKG}/mata/_spmixw_demean.mata"
+    if !_rc local PKG "${SPMIXW_PKG}"
 }
-else {
-    capture confirm file "../mata/_spmixw_demean.mata"
-    if !_rc {
-        local PKG ".."
+
+if "`PKG'" == "" {
+    local me = c(filename)
+    if "`me'" != "" {
+        local me_unix = subinstr("`me'", "\", "/", .)
+        if regexm("`me_unix'", "^(.+)/build/build_mlib\.do$") {
+            local cand = regexs(1)
+            capture confirm file "`cand'/mata/_spmixw_demean.mata"
+            if !_rc local PKG "`cand'"
+        }
     }
 }
+
 if "`PKG'" == "" {
-    di as err "build_mlib.do: cannot locate spmixw_stata/mata/. " ///
-        "Run from spmixw_stata/ or spmixw_stata/build/."
+    capture confirm file "mata/_spmixw_demean.mata"
+    if !_rc local PKG "."
+}
+if "`PKG'" == "" {
+    capture confirm file "../mata/_spmixw_demean.mata"
+    if !_rc local PKG ".."
+}
+
+if "`PKG'" == "" {
+    di as err "build_mlib.do: cannot locate spmixw_stata/mata/."
+    di as err "  Set global SPMIXW_PKG or cd to the package root before running."
     exit 601
 }
 
