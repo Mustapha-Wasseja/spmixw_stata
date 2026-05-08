@@ -122,41 +122,49 @@ foreach f of local FILES {
 
 di as txt "Packaging into `OUT'/lspmixw.mlib ..."
 
-// `mata mlib *` are Stata commands (not Mata code) — no `mata:` prefix.
-mata mlib create lspmixw, dir("`OUT'") replace
-mata mlib add lspmixw _spmixw_demean()           , dir("`OUT'")
-mata mlib add lspmixw _spmixw_ols()              , dir("`OUT'")
-mata mlib add lspmixw _spmixw_simulate_ols()     , dir("`OUT'")
-mata mlib add lspmixw _spmixw_logdet_exact()     , dir("`OUT'")
-mata mlib add lspmixw _spmixw_griddy_rho_sar()   , dir("`OUT'")
-mata mlib add lspmixw _spmixw_sar()              , dir("`OUT'")
-mata mlib add lspmixw _spmixw_simulate_sar()     , dir("`OUT'")
-mata mlib add lspmixw _spmixw_summary()          , dir("`OUT'")
-mata mlib add lspmixw _spmixw_linear_interp()    , dir("`OUT'")
-mata mlib add lspmixw _spmixw_griddy_rho_sem()   , dir("`OUT'")
-mata mlib add lspmixw _spmixw_sem()              , dir("`OUT'")
-mata mlib add lspmixw _spmixw_simulate_sem()     , dir("`OUT'")
-mata mlib add lspmixw _spmixw_compute_wx()       , dir("`OUT'")
-mata mlib add lspmixw _spmixw_fill_wx_in_data()  , dir("`OUT'")
-mata mlib add lspmixw _spmixw_trace_mc()         , dir("`OUT'")
-mata mlib add lspmixw _spmixw_effects_sar()      , dir("`OUT'")
-mata mlib add lspmixw _spmixw_effects_sdm()      , dir("`OUT'")
-mata mlib add lspmixw _spmixw_effects_simple()   , dir("`OUT'")
-mata mlib add lspmixw _spmixw_logdet_taylor()    , dir("`OUT'")
-mata mlib add lspmixw _spmixw_eval_taylor_lndet(), dir("`OUT'")
-mata mlib add lspmixw _spmixw_gamma_proposal_uniform()  , dir("`OUT'")
-mata mlib add lspmixw _spmixw_gamma_proposal_adapted()  , dir("`OUT'")
-mata mlib add lspmixw _spmixw_eval_cond_sar_conv()      , dir("`OUT'")
-mata mlib add lspmixw _spmixw_sar_conv()         , dir("`OUT'")
-mata mlib add lspmixw _spmixw_sar_conv_caller()  , dir("`OUT'")
-mata mlib add lspmixw _spmixw_simulate_sar_conv(), dir("`OUT'")
-mata mlib add lspmixw _spmixw_simulate_sem_conv(), dir("`OUT'")
-mata mlib add lspmixw _spmixw_model_probs()      , dir("`OUT'")
-mata mlib add lspmixw _spmixw_trace_cross_mc()   , dir("`OUT'")
-mata mlib add lspmixw _spmixw_effects_sdm_conv() , dir("`OUT'")
-mata mlib add lspmixw _spmixw_effects_sdem_conv(), dir("`OUT'")
+// Some Stata 13 builds reject the dir() option on `mata mlib create/add`
+// when the destination path contains spaces ("invalid expression r(3000)").
+// Work around by `cd`-ing to the output directory first; mata mlib then
+// writes to the cwd by default, no dir() needed.
+local olddir = c(pwd)
+cd "`OUT'"
+
+mata mlib create lspmixw, replace
+mata mlib add lspmixw _spmixw_demean()
+mata mlib add lspmixw _spmixw_ols()
+mata mlib add lspmixw _spmixw_simulate_ols()
+mata mlib add lspmixw _spmixw_logdet_exact()
+mata mlib add lspmixw _spmixw_griddy_rho_sar()
+mata mlib add lspmixw _spmixw_sar()
+mata mlib add lspmixw _spmixw_simulate_sar()
+mata mlib add lspmixw _spmixw_summary()
+mata mlib add lspmixw _spmixw_linear_interp()
+mata mlib add lspmixw _spmixw_griddy_rho_sem()
+mata mlib add lspmixw _spmixw_sem()
+mata mlib add lspmixw _spmixw_simulate_sem()
+mata mlib add lspmixw _spmixw_compute_wx()
+mata mlib add lspmixw _spmixw_fill_wx_in_data()
+mata mlib add lspmixw _spmixw_trace_mc()
+mata mlib add lspmixw _spmixw_effects_sar()
+mata mlib add lspmixw _spmixw_effects_sdm()
+mata mlib add lspmixw _spmixw_effects_simple()
+mata mlib add lspmixw _spmixw_logdet_taylor()
+mata mlib add lspmixw _spmixw_eval_taylor_lndet()
+mata mlib add lspmixw _spmixw_gamma_proposal_uniform()
+mata mlib add lspmixw _spmixw_gamma_proposal_adapted()
+mata mlib add lspmixw _spmixw_eval_cond_sar_conv()
+mata mlib add lspmixw _spmixw_sar_conv()
+mata mlib add lspmixw _spmixw_sar_conv_caller()
+mata mlib add lspmixw _spmixw_simulate_sar_conv()
+mata mlib add lspmixw _spmixw_simulate_sem_conv()
+mata mlib add lspmixw _spmixw_model_probs()
+mata mlib add lspmixw _spmixw_trace_cross_mc()
+mata mlib add lspmixw _spmixw_effects_sdm_conv()
+mata mlib add lspmixw _spmixw_effects_sdem_conv()
 
 mata mlib index
+
+cd "`olddir'"
 
 // -- Verify the .mlib actually exists -----------------------------------
 capture confirm file "`OUT'/lspmixw.mlib"
